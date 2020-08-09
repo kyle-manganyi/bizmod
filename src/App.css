@@ -1,10 +1,20 @@
 .App {
-  text-align: center;
+  background-image: url("https://i1.wp.com/amic.org.au/wp-content/uploads/2018/11/business-people-discussing-edit.jpg?ssl=1");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
+.container {
+  display: flex;
+  background-image: linear-gradient(to right, #2185d0 , transparent);
+  height: 100vh;
+  padding-top: 30%;
+  padding-left: 15%;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {

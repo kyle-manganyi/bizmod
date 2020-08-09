@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 import { Button } from 'semantic-ui-react'
 
 function App() {
