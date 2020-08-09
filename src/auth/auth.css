@@ -1,0 +1,12 @@
+.loginContainer {
+    margin-top: 5%;
+    width: 35vw !important;
+    background-color: rgb(255, 255, 255);
+    padding: 3em;
+    border-radius: 8px;
+    border: 2px #2185d0 solid;
+}
+
+.loginBtn {
+    border: 1px rgb(190, 190, 190) solid !important;
+}

@@ -5,6 +5,7 @@ import './index.css';
 import App from './App';
 import SignIn from './auth/signIn'
 import SignUp from './auth/signUp'
+import Nav from './navbar/navbar'
 import * as serviceWorker from './serviceWorker';
 import 'semantic-ui-css/semantic.min.css'
 
@@ -13,7 +14,8 @@ const routing = (
     <Switch>
       <Route path="/" component={App} exact/>
       <Route path="/signin" component={SignIn} exact/>
-      <Route path="/signup" component={SignIn} exact/>
+      <Route path="/signup" component={SignUp} exact/>
+      <Route path="/Nav" component={Nav} exact/>
     </Switch>
   </Router>
 )
