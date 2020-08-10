@@ -5,8 +5,7 @@ import { Button } from 'semantic-ui-react'
 function App() {
   return (
     <div className="App">
-
-      <div className='container'>
+      <div className='container2'>
         <div style={{color:"#fff", zIndex:99999, maxWidth:"60%"}} >
            <h1 style={{fontWeight:"900"}}>We do Projects</h1>
            <h3 style={{fontWeight:"900"}}>
@@ -19,10 +18,10 @@ function App() {
 
         <div>
           <div style={{marginBottom:20, marginTop:25}}>
-          <Button primary style={{width:150}}>Sign In</Button>
+          <Button primary style={{width:150}} onClick={()=> window.location = 'signin'}>Sign In</Button>
           </div>
           <div>
-          <Button primary style={{width:150}}>Sign Up</Button>
+          <Button primary style={{width:150}} onClick={()=> window.location = 'signup'}>Sign Up</Button>
           </div>
             
         </div>

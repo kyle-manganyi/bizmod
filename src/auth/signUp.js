@@ -1,34 +1,63 @@
 import React from 'react';
-import '../App.css';
-import { Button } from 'semantic-ui-react'
+import './auth.css';
+import { Link } from 'react-router-dom'
+import { Input, Button, Form, Container } from 'semantic-ui-react'
 
 function App() {
   return (
-    <div className="App">
+    <Container as='fieldset' className='loginContainer'>
+    <legend><h1 style={{color:'#2185d0'}}>Register</h1></legend>
+   <Form >
 
-      <div className='container'>
-        <div style={{color:"#fff", zIndex:99999, maxWidth:"60%"}} >
-           <h1 style={{fontWeight:"900"}}>We do Projects</h1>
-           <h3 style={{fontWeight:"900"}}>
-              Bizmod works with their clients to solve problems. We are
-              proudly women-owned and driven by the positive impact
-              we can instill in our clients organizations.
-           </h3>
-          
-        </div>
+   <Form.Field required >
+       <label>Full Names</label>
+       <Input placeholder='fullname'
+         icon='user' iconPosition='left' />
+     </Form.Field>
 
-        <div>
-          <div style={{marginBottom:20, marginTop:25}}>
-          <Button primary style={{width:150}}>Sign In</Button>
-          </div>
-          <div>
-          <Button primary style={{width:150}}>Sign Up</Button>
-          </div>
-            
-        </div>
-        </div>
+     <Form.Field required >
+       <label>Phone Number</label>
+       <Input placeholder='phone number'
+         icon='phone' iconPosition='left' />
+     </Form.Field>
 
-    </div>
+     <Form.Field required >
+       <label>Username</label>
+       <Input placeholder='username'
+         icon='user' iconPosition='left' 
+       />
+     </Form.Field>
+     
+     <Form.Field required>
+       <label>Password</label>
+       <Input 
+         icon='lock' 
+         iconPosition='left' 
+         placeholder=' password'
+         type='password'
+       />
+     </Form.Field>
+
+     <Form.Field required>
+       <label>Confirm Password</label>
+       <Input 
+         icon='lock' 
+         iconPosition='left' 
+         placeholder='Confirm Password'
+         type='password'
+       />
+     </Form.Field>
+
+     <Button 
+       className='loginBtn' 
+       primary 
+       fluid 
+       type='submit'>
+           Register</Button>
+     
+     Have an account? <Link to='/signin'>Login</Link>
+   </Form>
+ </Container>
   );
 }
 
