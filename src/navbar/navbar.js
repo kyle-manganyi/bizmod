@@ -5,6 +5,7 @@ import Dashboard from "../dashboard/dashboard";
 import Profile from "../profile/profile";
 import Vacancies from "../Vacancies/Vacancies";
 import Messanger from "../Messenger/Messenger";
+import Upload from '../components/Dashboard/Dashboard'
 export default class MenuExampleVertical extends Component {
   state = { activeItem: "Home" };
 
@@ -164,7 +165,7 @@ export default class MenuExampleVertical extends Component {
               <Profile></Profile>
             ) : this.state.activeItem === "Vacancies" ?(
               <Vacancies></Vacancies>
-            ) : this.state.activeItem === "Messenger" ?<Messanger></Messanger> :null}
+            ) : this.state.activeItem === "Messenger" ?<Messanger></Messanger> : this.state.activeItem==='Upload'? <Upload></Upload>:null}
           </div>
         </div>
       </div>
