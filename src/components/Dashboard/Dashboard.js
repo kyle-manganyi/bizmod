@@ -1,9 +1,9 @@
 import React,{ useState,Fragment} from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card,Icon } from 'semantic-ui-react'
 
 const Dashboard = () => {
 
-    const [data,setData] = useState()
+    const [data,setData] = useState([])
     return (
         <Fragment>
         <form>
@@ -17,16 +17,33 @@ const Dashboard = () => {
                 body: formdata,
                 redirect: 'follow'
                 };
-                fetch("http://localhost:3001/user/cv", requestOptions)
+                fetch("https://gentle-savannah-90866.herokuapp.com/user/cv", requestOptions)
                 .then(response => response.text())
-                .then(result => setData(JSON.parse(result)))
+                .then(result => setData( JSON.parse(result) ))
                 .catch(error => console.log('error', error));
             }}/>
         </form>
-            { data && data.forEach(function (item) {
-                console.log(item)
-                return `<h1>${item.name}</h1>`
-            })}
+
+            <div>
+                {
+                    data.length > 0 ?
+                        <div>
+                        {
+                            data.map(e => 
+                                <Card>
+                                <Card.Content header={`${e.Name} - ${e.Surname}`} />
+                                <Card.Content description={`Country: ${e.Country}`} />
+                                <Card.Content extra>
+                                    <Icon name='phone' />
+                                </Card.Content>
+                                </Card>
+                               
+                            )        
+                        }
+                        </div>
+                    :null
+                }
+            </div>
         </Fragment>
     )
 }
