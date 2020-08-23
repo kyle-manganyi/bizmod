@@ -1,19 +1,21 @@
 import React,{ useState,Fragment} from 'react'
-import { Card,Icon } from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 
 const Dashboard = () => {
 
-    const [data,setData] = useState([])
     const [cv, setCv] = useState([])
-    // console.log(data)
 
     const fmtt = (data) => {
-        const component = []
-        for (const [key, value] of Object.entries(data[0])) {
-            component.push(key)
-            component.push(value)
+
+        const mydata = []
+        for (const [_, values] of Object.entries(data)) {
+            const component = []
+            for (const [key, value] of Object.entries(values)) {
+                component.push(key +'\t'+ value)
+            }
+            mydata.push(component)
         }
-        setCv(component)
+        setCv(mydata)
     }
 
     return (
@@ -35,14 +37,12 @@ const Dashboard = () => {
                 .catch(error => console.log('error', error));
             }}/>
         </form>
-
-            <div>
-                {
-                    cv.length > 0 ?
-                        cv.map((x) =><div>{x}</div>)
-                    :null
-                }
-            </div>
+        {
+            cv.length > 0 ? cv.map((x) =>(
+                x.map(i =><Card>{i}</Card>)
+            ))
+            :null
+        }
         </Fragment>
     )
 }
