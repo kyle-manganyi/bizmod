@@ -6,6 +6,7 @@ import Profile from "../profile/profile";
 import Vacancies from "../Vacancies/Vacancies";
 import Messanger from "../Messenger/Messenger";
 import Upload from '../components/Dashboard/Dashboard'
+import Home from './Home/Home'
 export default class MenuExampleVertical extends Component {
   state = { activeItem: "Home" };
 
@@ -13,7 +14,7 @@ export default class MenuExampleVertical extends Component {
 
   render() {
     const { activeItem } = this.state;
-
+    const welcome = window.location.href.split('/')
     return (
       <div>
         <Menu borderless style={{ margin: "0%" }}>
@@ -38,7 +39,7 @@ export default class MenuExampleVertical extends Component {
             active={activeItem === "updates"}
             onClick={this.handleItemClick}
           >
-            Bizmod
+            {welcome[welcome.length-1]}
           </Menu.Item>
           <Menu.Item
             name="proile"
@@ -165,7 +166,10 @@ export default class MenuExampleVertical extends Component {
               <Profile></Profile>
             ) : this.state.activeItem === "Vacancies" ?(
               <Vacancies></Vacancies>
-            ) : this.state.activeItem === "Messenger" ?<Messanger></Messanger> : this.state.activeItem==='Upload'? <Upload></Upload>:null}
+            ) : this.state.activeItem === "Messenger" ?
+            <Messanger></Messanger> : this.state.activeItem==='Upload'? <Upload></Upload>:
+            
+            welcome[welcome.length-1] === "admin"? <Home></Home>:null}
           </div>
         </div>
       </div>

@@ -4,6 +4,8 @@ import { Card,Icon } from 'semantic-ui-react'
 const Dashboard = () => {
 
     const [data,setData] = useState([])
+    console.log(data)
+
     return (
         <Fragment>
         <form>
@@ -17,7 +19,7 @@ const Dashboard = () => {
                 body: formdata,
                 redirect: 'follow'
                 };
-                fetch("https://gentle-savannah-90866.herokuapp.com/user/cv", requestOptions)
+                fetch("http://localhost:3001/user/cv", requestOptions)
                 .then(response => response.text())
                 .then(result => setData( JSON.parse(result) ))
                 .catch(error => console.log('error', error));
