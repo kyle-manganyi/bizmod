@@ -4,7 +4,17 @@ import { Card,Icon } from 'semantic-ui-react'
 const Dashboard = () => {
 
     const [data,setData] = useState([])
-    console.log(data)
+    const [cv, setCv] = useState([])
+    // console.log(data)
+
+    const fmtt = (data) => {
+        const component = []
+        for (const [key, value] of Object.entries(data[0])) {
+            component.push(key)
+            component.push(value)
+        }
+        setCv(component)
+    }
 
     return (
         <Fragment>
@@ -21,28 +31,15 @@ const Dashboard = () => {
                 };
                 fetch("http://localhost:3001/user/cv", requestOptions)
                 .then(response => response.text())
-                .then(result => setData( JSON.parse(result) ))
+                .then(result => fmtt( JSON.parse(result) ))
                 .catch(error => console.log('error', error));
             }}/>
         </form>
 
             <div>
                 {
-                    data.length > 0 ?
-                        <div>
-                        {
-                            data.map(e => 
-                                <Card>
-                                <Card.Content header={`${e.Name} - ${e.Surname}`} />
-                                <Card.Content description={`Country: ${e.Country}`} />
-                                <Card.Content extra>
-                                    <Icon name='phone' />
-                                </Card.Content>
-                                </Card>
-                               
-                            )        
-                        }
-                        </div>
+                    cv.length > 0 ?
+                        cv.map((x) =><div>{x}</div>)
                     :null
                 }
             </div>
