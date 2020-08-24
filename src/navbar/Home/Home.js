@@ -11,6 +11,20 @@ const Home = () => {
 
     const recs = () => {
 
+        var myHeaders = new Headers();
+        myHeaders.append("accept", "*/*");
+
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch("https://localhost:5004/api/Farm/get-farms", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
         var requestOptions = {
         method: 'GET',
         redirect: 'follow'

@@ -8,12 +8,14 @@ import Messanger from "../Messenger/Messenger";
 import Upload from '../components/Dashboard/Dashboard'
 import Home from './Home/Home'
 export default class MenuExampleVertical extends Component {
-  state = { activeItem: "Home" };
+  state = { activeItem: "Home", user:JSON.parse(localStorage.getItem('user'))};
+  
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    const { activeItem } = this.state;
+    console.log(this.state.user)
+    const { activeItem, user } = this.state;
     const welcome = window.location.href.split('/')
     return (
       <div>
@@ -39,7 +41,7 @@ export default class MenuExampleVertical extends Component {
             active={activeItem === "updates"}
             onClick={this.handleItemClick}
           >
-            {welcome[welcome.length-1]}
+            {user.name}
           </Menu.Item>
           <Menu.Item
             name="proile"
