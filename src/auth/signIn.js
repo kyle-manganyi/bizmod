@@ -11,22 +11,44 @@ function App() {
   const login = () => {
 
     var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("accept", "*/*");
+    myHeaders.append("Content-Type", "application/json-patch+json");
 
-    var raw = JSON.stringify({"username":username,"password":password});
-
+    const body = {
+      "name": " ",
+      "surname": "",
+      "email": username,
+      "password": password,
+      "number": "",
+      "type": ""
+    }
     var requestOptions = {
       method: 'POST',
       headers: myHeaders,
-      body: raw,
+      body: JSON.stringify(body),
       redirect: 'follow'
     };
 
-    fetch("https://gentle-savannah-90866.herokuapp.com/user/users", requestOptions)
-      .then(response => response.text())
-      .then(result => JSON.parse(result))
-      .then( result => {
-        result[0].name && (window.location = '/Nav/user')})
+    fetch("https://saosa.herokuapp.com/api/Bizmod/login", requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        localStorage.setItem('user', JSON.stringify(result))
+        console.log(result)
+
+        setTimeout(() => {
+          if(result.type == "candidate"){
+            window.location = '/Nav/user'
+          }
+          else if(result.type == "recruiter"){
+            window.location = '/Nav/recruiter'
+
+          }else if(result.type == "admin"){
+            window.location = '/Nav/admin'
+          }
+          
+        }, 5000);
+        
+      })
       .catch(error => console.log('error', error));
 
   }
@@ -98,15 +120,8 @@ function App() {
          onChange={ val => setPassword(val.target.value)} 
        />
      </Form.Field>
-     <Button className='loginBtn' primary fluid type='submit' onClick={login}>
-     
-      Candidate Login</Button>
-      <Button className='loginBtn' primary fluid type='submit' onClick={reclogin}>
-     
-      Recruiter Login</Button>
-      <Button className='loginBtn' primary fluid type='submit' onClick={admin}>
-     
-      Admin Login</Button>
+     <Button className='loginBtn' primary fluid type='submit' onClick={login}>Login</Button>
+      
        Don't have an account? <Link to='/signup'>Register</Link>
    </Form>
  </Container>

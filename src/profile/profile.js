@@ -35,7 +35,7 @@ function App() {
     
     fetch("https://saosa.herokuapp.com/api/Bizmod/update", requestOptions)
       .then(response => response.text())
-      .then(result => console.log(result))
+      .then(result => { localStorage.setItem('user', result)})
       .catch(error => console.log('error', error));
   }
 
@@ -71,7 +71,7 @@ function App() {
      </Form.Field>
 
      <Form.Field required >
-       <label>Username</label>
+       <label>Email</label>
        <Input placeholder={user.email}
          icon='user' iconPosition='left'
          onChange={ val => setUsername(val.target.value)}
