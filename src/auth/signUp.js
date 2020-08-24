@@ -109,7 +109,7 @@ const RecruiterRegister = (e) => {
 
      <Form.Field required >
        <label>Email</label>
-       <Input placeholder='username'
+       <Input placeholder='Email'
          icon='user' iconPosition='left'
          onChange={ val => setUsername(val.target.value)}
        />

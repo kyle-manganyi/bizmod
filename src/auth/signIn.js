@@ -104,8 +104,8 @@ function App() {
     <legend><h1 style={{color:'#2185d0'}}>Login</h1></legend>
    <Form>
      <Form.Field required >
-       <label>Username</label>
-       <Input placeholder='username'
+       <label>Email</label>
+       <Input placeholder='Email'
          icon='user' iconPosition='left'
          onChange={ val => setUsername(val.target.value)} />
      </Form.Field>

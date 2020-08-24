@@ -6,6 +6,8 @@ function TableExampleCollapsing(){
 
   const [vacancies, setVacancies] = React.useState([])
   const [selected, setSelected] = React.useState(0)
+  const user = JSON.parse(localStorage.getItem('user'))
+
 
   React.useEffect(()=>{
     var myHeaders = new Headers();
@@ -23,7 +25,27 @@ function TableExampleCollapsing(){
       .catch(error => console.log('error', error));
   },[])
 
-  console.log(vacancies)
+  const apply = (id) =>{
+
+    var myHeaders = new Headers();
+    myHeaders.append("accept", "*/*");
+    myHeaders.append("Content-Type", "application/json-patch+json");
+
+    var raw = {userID:user.id,vacancyID:id};
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: JSON.stringify(raw),
+      redirect: 'follow'
+    };
+
+    fetch("https://saosa.herokuapp.com/api/Bizmod/apply", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+  }
+
 
   return (
   <div style={{ marginTop: 30,display:'flex' }}>
@@ -56,7 +78,7 @@ function TableExampleCollapsing(){
     </Table>
     <div>
       {
-    <Card style={{width:500, height:"100vh", marginLeft:10}}>
+    <Card style={{width:500, marginLeft:10}}>
       <Card.Content>
         <Image
           floated='right'
@@ -80,12 +102,9 @@ Skills and Experience<br/><br/>
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='green'>
+        <div className='ui one buttons'>
+          <Button basic color='green' onClick={() => apply(selected)}>
             Apply
-          </Button>
-          <Button basic color='red'>
-            Ignore
           </Button>
         </div>
       </Card.Content>

@@ -80,23 +80,6 @@ export default class MenuExampleVertical extends Component {
             </Menu.Item>
 
             <Menu.Item
-              name="Dashboard"
-              active={activeItem === "Dashboard"}
-              onClick={this.handleItemClick}
-              style={{
-                color: "#fff",
-                fontSize: activeItem === "Dashboard" ? 20 : 16,
-                fontWeight: "600"
-              }}
-            >
-              <div>
-                <Icon name="chart bar outline" style={{marginRight:30}}/>
-                Dashboard
-              </div>
-              
-            </Menu.Item>
-
-            <Menu.Item
               name="Profile"
               active={activeItem === "Profile"}
               onClick={this.handleItemClick}
@@ -162,7 +145,7 @@ export default class MenuExampleVertical extends Component {
             </Menu.Item>
           </Menu>
           <div style={{ marginLeft: 40, marginRight: 40 }}>
-            {this.state.activeItem === "Dashboard" ? (
+            {this.state.activeItem === "Home" ? (
               <Dashboard></Dashboard>
             ) : this.state.activeItem === "Profile" ? (
               <Profile></Profile>
