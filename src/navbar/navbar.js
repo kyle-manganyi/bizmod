@@ -41,7 +41,7 @@ export default class MenuExampleVertical extends Component {
             active={activeItem === "updates"}
             onClick={this.handleItemClick}
           >
-            {user !== null ?user.name:null}
+            {user !== null ? user.name : null}
           </Menu.Item>
           <Menu.Item
             name="proile"

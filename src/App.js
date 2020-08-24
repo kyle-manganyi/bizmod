@@ -6,9 +6,9 @@ function App() {
   return (
     <div className="App">
       <div className='container2'>
-        <div style={{color:"#fff", zIndex:99999, maxWidth:"60%"}} >
+        <div style={{color:"#fff", zIndex:99999, maxWidth:"80%"}} >
            <h1 style={{fontWeight:"900"}}>We do Projects</h1>
-           <h3 style={{fontWeight:"900"}}>
+           <h3 style={{fontWeight:"900",}}>
               Bizmod works with their clients to solve problems. We are
               proudly women-owned and driven by the positive impact
               we can instill in our clients organizations.

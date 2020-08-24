@@ -1,5 +1,5 @@
 import React,{ useState,Fragment} from 'react'
-import { Card } from 'semantic-ui-react'
+import { Card, } from 'semantic-ui-react'
 
 const Dashboard = () => {
 
@@ -11,12 +11,15 @@ const Dashboard = () => {
         for (const [_, values] of Object.entries(data)) {
             const component = []
             for (const [key, value] of Object.entries(values)) {
-                component.push(key +'\t'+ value)
+                component.push(key + '\t\t\t'+ value)
             }
             mydata.push(component)
         }
+        console.log(mydata)
         setCv(mydata)
     }
+
+    const testing = (x) => x.map(i =><div>{i}</div>)
 
     return (
         <Fragment>
@@ -38,8 +41,10 @@ const Dashboard = () => {
             }}/>
         </form>
         {
-            cv.length > 0 ? cv.map((x) =>(
-                x.map(i =><Card>{i}</Card>)
+            cv.length > 0 ? cv.map(x =>(
+               <Card>
+                {testing(x)}
+               </Card>
             ))
             :null
         }
