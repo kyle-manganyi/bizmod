@@ -2,6 +2,7 @@
   background-image: url("https://i1.wp.com/amic.org.au/wp-content/uploads/2018/11/business-people-discussing-edit.jpg?ssl=1");
   background-repeat: no-repeat;
   background-size: cover;
+  white-space: pre !important;
 }
 
 .container2 {
