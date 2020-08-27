@@ -33,16 +33,14 @@ function App() {
       .then(response => response.json())
       .then(result => {
         localStorage.setItem('user', JSON.stringify(result))
-        console.log(result)
-
         setTimeout(() => {
-          if(result.type == "candidate"){
+          if(result.type === "candidate"){
             window.location = '/Nav/user'
           }
-          else if(result.type == "recruiter"){
+          else if(result.type === "recruiter"){
             window.location = '/Nav/recruiter'
 
-          }else if(result.type == "admin"){
+          }else if(result.type === "admin"){
             window.location = '/Nav/admin'
           }
           

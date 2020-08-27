@@ -19,32 +19,13 @@ function TableExampleCollapsing(){
       redirect: 'follow'
     };
     
-    fetch("https://localhost:5004/api/Bizmod/applications?id=58", requestOptions)
+    fetch("https://localhost:5004/api/Bizmod/applications?id="+user.id, requestOptions)
       .then(response => response.json())
       .then(result => setVacancies(result))
       .catch(error => console.log('error', error));
   },[])
 
-  const apply = (id) =>{
 
-    var myHeaders = new Headers();
-    myHeaders.append("accept", "*/*");
-    myHeaders.append("Content-Type", "application/json-patch+json");
-
-    var raw = {userID:user.id,vacancyID:id};
-
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: JSON.stringify(raw),
-      redirect: 'follow'
-    };
-
-    fetch("https://saosa.herokuapp.com/api/Bizmod/apply", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-  }
 
 
   return (
