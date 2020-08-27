@@ -6,7 +6,9 @@ import Profile from "../profile/profile";
 import Vacancies from "../Vacancies/Vacancies";
 import Messanger from "../Messenger/Messenger";
 import Upload from '../components/Dashboard/Dashboard'
+import Applications from '../applications/applications'
 import Home from './Home/Home'
+import AdminChat from '../Messenger/adminChats'
 export default class MenuExampleVertical extends Component {
   state = { activeItem: "Home", user:JSON.parse(localStorage.getItem('user'))};
   
@@ -14,7 +16,6 @@ export default class MenuExampleVertical extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
   render() {
-    console.log(this.state.user)
     const { activeItem, user } = this.state;
     const welcome = window.location.href.split('/')
     return (
@@ -52,7 +53,11 @@ export default class MenuExampleVertical extends Component {
             <Icon name="user" size="large" />
           </Menu.Item>
         </Menu>
-        <div style={{ display: "flex" }}>
+
+        {
+          welcome[welcome.length-1] !== "admin" ?
+
+          <div style={{ display: "flex" }}>
           <Menu
             vertical
             style={{
@@ -143,9 +148,25 @@ export default class MenuExampleVertical extends Component {
               </div>
               
             </Menu.Item>
+            <Menu.Item
+              name="Applications"
+              active={activeItem === "Applications"}
+              onClick={this.handleItemClick}
+              style={{
+                color: "#fff",
+                fontSize: activeItem === "Applications" ? 20 : 16,
+                fontWeight: "600"
+              }}
+            >
+              <div>
+                <Icon name="briefcase" style={{marginRight:30}}/>
+                Applications
+              </div>
+              
+            </Menu.Item>
           </Menu>
           <div style={{ marginLeft: 40, marginRight: 40 }}>
-            {this.state.activeItem === "Home" ? (
+            {this.state.activeItem === "Home"? (
               <Dashboard></Dashboard>
             ) : this.state.activeItem === "Profile" ? (
               <Profile></Profile>
@@ -154,9 +175,98 @@ export default class MenuExampleVertical extends Component {
             ) : this.state.activeItem === "Messenger" ?
             <Messanger></Messanger> : this.state.activeItem==='Upload'? <Upload></Upload>:
             
-            welcome[welcome.length-1] === "admin"? <Home></Home>:null}
+            welcome[welcome.length-1] === "admin"? <Home></Home>:this.state.activeItem === "Applications"? <Applications></Applications>:null}
+          </div>
+        </div>:    <div style={{ display: "flex" }}>
+          <Menu
+            vertical
+            style={{
+              margin: "0%",
+              height: "120vh",
+              backgroundColor: "#2185d0",
+              width: '20%'
+            }}
+          >
+            <Menu.Item
+              name="Home"
+              active={activeItem === "Home"}
+              onClick={this.handleItemClick}
+              style={{
+                color: "#fff",
+                fontSize: activeItem === "Home" ? 20 : 16,
+                fontWeight: "600"
+              }}
+            >
+              <div>
+                <Icon name="home" style={{marginRight:30}}/>
+                Home
+              </div>
+            
+            </Menu.Item>
+            <Menu.Item
+              name="CVs"
+              active={activeItem === "CVs"}
+              onClick={this.handleItemClick}
+              style={{
+                color: "#fff",
+                fontSize: activeItem === "CVs" ? 20 : 16,
+                fontWeight: "600"
+              }}
+            >
+              <div>
+                <Icon name="upload" style={{marginRight:30}}/>
+                CVs
+              </div>
+              
+            </Menu.Item>
+            <Menu.Item
+              name="Vacancies"
+              active={activeItem === "Vacancies"}
+              onClick={this.handleItemClick}
+              style={{
+                color: "#fff",
+                fontSize: activeItem === "Vacancies" ? 20 : 16,
+                fontWeight: "600"
+              }}
+            >
+              <div>
+                <Icon name="briefcase" style={{marginRight:30}}/>
+                Vacancies
+              </div>
+              
+            </Menu.Item>
+            <Menu.Item
+              name="Messenger"
+              active={activeItem === "Messenger"}
+              onClick={this.handleItemClick}
+              style={{
+                color: "#fff",
+                fontSize: activeItem === "Messenger" ? 20 : 16,
+                fontWeight: "600"
+              }}
+            >
+              <div>
+                <Icon name="envelope" style={{marginRight:30}}/>
+                Messenger
+              </div>
+              
+            </Menu.Item>
+          </Menu>
+          <div style={{ marginLeft: 40, marginRight: 40 }}>
+            {this.state.activeItem === "Home"? (
+               <Home></Home>
+            ) : this.state.activeItem === "Profile" ? (
+              <Profile></Profile>
+            ) : this.state.activeItem === "Vacancies" ?(
+              <Vacancies></Vacancies>
+            ) : this.state.activeItem === "Messenger" ?
+            <AdminChat></AdminChat> : this.state.activeItem==='Upload'? <Upload></Upload>:
+            
+            welcome[welcome.length-1] === "admin"? <Home></Home>:this.state.activeItem === "Applications"? <Applications></Applications>:null}
           </div>
         </div>
+        }
+       
       </div>
     );
   }

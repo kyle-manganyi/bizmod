@@ -1,9 +1,10 @@
 import React ,{useState,useEffect} from 'react'
+import { Header, Table, Rating } from 'semantic-ui-react'
+
 
 const Home = () => {
 
-    const [recst,setRect] = useState([])
-    const [recst2,setRect2] = useState([])
+    const [users,setUsers] = useState([])
 
     useEffect(() => {
         recs()
@@ -20,50 +21,50 @@ const Home = () => {
         redirect: 'follow'
         };
 
-        fetch("https://localhost:5004/api/Farm/get-farms", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
+
+        fetch("https://saosa.herokuapp.com/api/Bizmod/users", requestOptions)
+        .then(response => response.json())
+        .then(result => setUsers(result))
         .catch(error => console.log('error', error));
-
-        var requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-        };
-
-        fetch("https://gentle-savannah-90866.herokuapp.com/user/allrecruiters", requestOptions)
-        .then(response => response.text())
-        .then(result => JSON.parse(result))
-        .then(result => setRect(result))
-        .catch(error => console.log('error', error));
-
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-            };
-    
-            fetch("https://gentle-savannah-90866.herokuapp.com/user/allusers", requestOptions)
-            .then(response => response.text())
-            .then(result => JSON.parse(result))
-            .then(result => setRect2(result))
-            .catch(error => console.log('error', error));
     }
-    console.log(recst)
     return (
-        <div>
-        <div>recruiters</div>
-           {
-               recst.map(x => 
-                   <div>{x.name}</div>
-               )
-           }
-            <hr></hr>
-           <div>Users</div>
-           {
-               recst2.map(x => 
-                   <div>{x.name}</div>
-               )
-           }
-           </div>
+        <div style={{maxHeight:"120vh",overflowY:"scroll"}}>
+            <Table celled padded style={{maxHeight:"120vh"}}>
+    <Table.Header>
+      <Table.Row>
+        <Table.HeaderCell>name</Table.HeaderCell>
+        <Table.HeaderCell>surname</Table.HeaderCell>
+        <Table.HeaderCell>number</Table.HeaderCell>
+        <Table.HeaderCell>email</Table.HeaderCell>
+        <Table.HeaderCell>type</Table.HeaderCell>
+      </Table.Row>
+    </Table.Header>
+
+    <Table.Body>
+        {
+             users.map(x => 
+                <Table.Row>
+        <Table.Cell>
+         {x.name}
+        </Table.Cell>
+        <Table.Cell>{x.surname}</Table.Cell>
+        <Table.Cell>
+            {x.number}
+        </Table.Cell>
+        <Table.Cell textAlign='right'>
+          {x.email}
+        </Table.Cell>
+        <Table.Cell>
+         {x.type}
+        </Table.Cell>
+      </Table.Row>
+            )
+        }
+      
+    </Table.Body>
+  </Table>
+         
+    </div>
 
     )
 }
