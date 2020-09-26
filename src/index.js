@@ -13,7 +13,7 @@ import 'semantic-ui-css/semantic.min.css'
 const routing = (
   <Router>
     <Switch>
-      <Route path="/" component={App} exact/>
+      <Route path="/" component={Dashboard} exact/>
       <Route path="/signin" component={SignIn}/>
       <Route path="/signup" component={SignUp}/>
       <Route path="/Nav" component={Nav}/>
