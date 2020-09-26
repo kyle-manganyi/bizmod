@@ -51,7 +51,7 @@ const Dashboard = () => {
             }}/>
             </Button>
         </Segment>
-        <Card.Group>
+        <Card.Group centered>
         {
             cv.length > 0 ? cv.map(x =>(
                 
