@@ -1,5 +1,5 @@
 import React ,{useState,useEffect} from 'react'
-import { Header, Table, Rating } from 'semantic-ui-react'
+import { Header, Table, Button } from 'semantic-ui-react'
 
 
 const Home = () => {
@@ -7,26 +7,39 @@ const Home = () => {
     const [users,setUsers] = useState([])
 
     useEffect(() => {
-        recs()
+      var myHeaders = new Headers();
+      myHeaders.append("accept", "*/*");
+
+      var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+      };
+
+
+      fetch("https://saosa.herokuapp.com/api/Bizmod/users", requestOptions)
+      .then(response => response.json())
+      .then(result => setUsers(result))
+      .catch(error => console.log('error', error));
       },[]);
 
-    const recs = () => {
-
-        var myHeaders = new Headers();
-        myHeaders.append("accept", "*/*");
-
-        var requestOptions = {
-        method: 'GET',
+    const recs = (id) => {
+      var myHeaders = new Headers();
+      myHeaders.append("accept", "*/*");
+      
+      var requestOptions = {
+        method: 'POST',
         headers: myHeaders,
         redirect: 'follow'
-        };
-
-
-        fetch("https://saosa.herokuapp.com/api/Bizmod/users", requestOptions)
+      };
+      
+      fetch("https://saosa.herokuapp.com/api/Bizmod/remove-user?id="+id, requestOptions)
         .then(response => response.json())
         .then(result => setUsers(result))
         .catch(error => console.log('error', error));
+        
     }
+
     return (
         <div style={{maxHeight:"120vh",overflowY:"scroll"}}>
             <Table celled padded style={{maxHeight:"120vh"}}>
@@ -56,6 +69,13 @@ const Home = () => {
         </Table.Cell>
         <Table.Cell>
          {x.type}
+        </Table.Cell>
+        <Table.Cell>
+        <Button
+                content='Delete'
+                primary
+                onClick = {() => recs(x.id)}
+            />
         </Table.Cell>
       </Table.Row>
             )

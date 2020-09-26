@@ -99,7 +99,7 @@ function App() {
 
   return (
     <Container as='fieldset' className='loginContainer'>
-    <legend><h1 style={{color:'#2185d0'}}>Login</h1></legend>
+    <legend><h1 style={{color:'#2185d0'}}>Reset</h1></legend>
    <Form>
      <Form.Field required >
        <label>Email</label>
@@ -107,23 +107,10 @@ function App() {
          icon='user' iconPosition='left'
          onChange={ val => setUsername(val.target.value)} />
      </Form.Field>
-     
-     <Form.Field required>
-       <label>Password</label>
-       <Input 
-         icon='lock' 
-         iconPosition='left' 
-         placeholder=' password'
-         type='password'
-         onChange={ val => setPassword(val.target.value)} 
-       />
-     </Form.Field>
-     <Button className='loginBtn' primary fluid type='submit' onClick={login}>Login</Button>
+    
+     <Button className='loginBtn' primary fluid type='submit' onClick={login}>reset</Button>
       <div>
-      Don't have an account? <Link to='/signup'>Register</Link>
-      </div>
-      <div>
-      Forgot Password? <Link to='/reset'>Reset</Link>
+      remember password? <Link to='/signin'>Login</Link>
       </div>
    </Form>
  </Container>

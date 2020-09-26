@@ -47,12 +47,6 @@ fetch("https://saosa.herokuapp.com/api/Bizmod/registration", requestOptions)
 
 const RecruiterRegister = (e) => {
   e.preventDefault()
-
-  let pass = /[A-Z]/.test(password) && /[0-9]/.test(password);
-  console.log(pass)
-  if(!pass){
-    return
-  }
   const body = {
     "name": name,
     "surname": surname,
@@ -73,16 +67,15 @@ const RecruiterRegister = (e) => {
     redirect: 'follow'
   };
   
-  // fetch("https://saosa.herokuapp.com/api/Bizmod/registration", requestOptions)
-  //   .then(response => response.text())
-  //   .then(result => { localStorage.setItem('user', result)})
-  //   .catch(error => console.log('error', error));
+  fetch("https://saosa.herokuapp.com/api/Bizmod/registration", requestOptions)
+    .then(response => response.text())
+    .then(result => { localStorage.setItem('user', result)})
+    .catch(error => console.log('error', error));
 
-  //   setTimeout(() => {
-  //     window.location = '/Nav/recruiter'
-  //   }, 5000);
+    setTimeout(() => {
+      window.location = '/Nav/recruiter'
+    }, 5000);
 }
-
 
   return (
     <Container as='fieldset' className='loginContainer'>
@@ -90,21 +83,12 @@ const RecruiterRegister = (e) => {
    <Form >
 
    <Form.Field required >
-       <label>Name</label>
-       <Input placeholder='fullname'
+       <label>Company Name</label>
+       <Input placeholder='Company Name'
          icon='user' 
          iconPosition='left' 
          
          onChange={ val => setName(val.target.value)}/>
-     </Form.Field>
-
-     <Form.Field required >
-       <label>Surname</label>
-       <Input placeholder='surname'
-         icon='user' 
-         iconPosition='left' 
-         
-         onChange={ val => setSurname(val.target.value)}/>
      </Form.Field>
 
      <Form.Field required >
@@ -142,15 +126,6 @@ const RecruiterRegister = (e) => {
          type='password'
        />
      </Form.Field>
-
-     <Button 
-       className='loginBtn' 
-       primary 
-       fluid 
-       type='submit'
-       onClick={CandidateRegister}
-       >
-      Candidate Register</Button>
 
       <Button 
           className='loginBtn' 

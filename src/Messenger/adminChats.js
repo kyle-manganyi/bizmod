@@ -21,10 +21,9 @@ function TableExampleCollapsing(){
       redirect: 'follow'
     };
     
-    fetch("https://localhost:5004/api/Bizmod/chats-list", requestOptions)
+    fetch("https://saosa.herokuapp.com/api/Bizmod/chats-list", requestOptions)
       .then(response => response.json())
       .then(result => SetAllChats(result))
-      .then(setMessage(""))
       .catch(error => console.log('error', error));
   })
 
@@ -85,7 +84,7 @@ function TableExampleCollapsing(){
       <Table.Body>
         {
           AllChats.map((x, index) => (
-            x.id !== 36 ?
+           x !== null && x.id !== 36 ?
             <Table.Row>
             <Table.Cell>
               <Feed onClick={() => apply(x.id)}>
@@ -116,7 +115,15 @@ function TableExampleCollapsing(){
 
             {
             chats.map(x => (
-                <Comment>
+              x.senderID === 36? 
+              <Comment>
+              <Comment.Content>
+              <Comment.Author as='a'>{x.senderID === 36 ? "Admin": "User"}</Comment.Author>
+              <Comment.Text>{x.message}</Comment.Text>
+              </Comment.Content>
+          </Comment>  
+              :
+                <Comment style={{width:500, marginLeft:100}}>
                 <Comment.Content>
                 <Comment.Author as='a'>{x.senderID === 36 ? "Admin": "User"}</Comment.Author>
                 <Comment.Text>{x.message}</Comment.Text>
