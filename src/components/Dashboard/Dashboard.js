@@ -1,4 +1,4 @@
-import React,{ useState,Fragment} from 'react'
+import React,{ useState} from 'react'
 import { Card,Segment,Header,Icon,Button } from 'semantic-ui-react'
 
 import './Dashboard.css'
@@ -20,10 +20,14 @@ const Dashboard = () => {
         setCv(mydata)
     }
 
-    const testing = (x) => x.map(i =><div key={i.key}><span className="keys">{i.key}</span><span className="values">{i.value}</span></div>)
+    const testing = (x) => x.map(i =>
+        <div className="cv-contanier" key={i.key}>
+            <span className="keys">{i.key}</span>
+            <span className="values">{i.value}</span>
+        </div>)
 
     return (
-        <Fragment>
+        <>
         <Segment placeholder>
                 <Header icon>
                 <Icon name='file word outline' />
@@ -47,15 +51,19 @@ const Dashboard = () => {
             }}/>
             </Button>
         </Segment>
+        <Card.Group centered>
         {
             cv.length > 0 ? cv.map(x =>(
-               <Card key={x} className="cvs">
-                {testing(x)}
-               </Card>
+                
+                <Card key={x} className="cvs">
+                    {testing(x)}
+                </Card>
+                
             ))
             :null
         }
-        </Fragment>
+        </Card.Group>
+        </>
     )
 }
 
