@@ -1,18 +1,20 @@
 import React,{useState} from 'react';
 import '../App.css';
-import { Input, Button, Form, Container } from 'semantic-ui-react'
+import { Input, Button, Form, Container,Dimmer,Loader } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 function App() {
   const [username,setUsername] = useState()
   const [password,setPassword] = useState()
+  const [loading,setLoading] = useState(false)
 
   const login = () => {
 
     var myHeaders = new Headers();
     myHeaders.append("accept", "*/*");
     myHeaders.append("Content-Type", "application/json-patch+json");
+    setLoading(true)
 
     const body = {
       "name": " ",
@@ -34,6 +36,7 @@ function App() {
       .then(result => {
         localStorage.setItem('user', JSON.stringify(result))
         setTimeout(() => {
+          setLoading(false)
           if(result.type === "candidate"){
             window.location = '/Nav/user'
           }
@@ -47,7 +50,7 @@ function App() {
         }, 5000);
         
       })
-      .catch(error => console.log('error', error));
+      .catch(error => setLoading(false));
 
   }
 
@@ -118,7 +121,13 @@ function App() {
          onChange={ val => setPassword(val.target.value)} 
        />
      </Form.Field>
-     <Button className='loginBtn' primary fluid type='submit' onClick={login}>Login</Button>
+     {
+       loading ?  <Dimmer active>
+       <Loader />
+     </Dimmer> :
+       <Button className='loginBtn' primary fluid type='submit' onClick={login}>Login</Button>
+     }
+     
       <div>
       Don't have an account? <Link to='/signup'>Register</Link>
       </div>

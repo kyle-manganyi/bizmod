@@ -10,9 +10,22 @@ function App() {
   const [ numbers,setNumbers] = useState()
   const [ username,setUsername] = useState('')
   const [ password,setPassword] = useState('')
+  const [passwordStrong, setPasswordStrong] = useState('')
+  const [loading,setLoading] = useState(false)
+
 
 const CandidateRegister = (e) => {
   e.preventDefault()
+  setLoading(true)
+
+  let pass = /[A-Z]/.test(password) && /[0-9]/.test(password);
+  console.log(pass)
+  if(!pass){
+    setLoading(false)
+    setPasswordStrong("password must have capital letter and a number")
+    return
+  }
+  setPasswordStrong("")
 
   const body = {
     "name": name,
@@ -37,22 +50,28 @@ var requestOptions = {
 
 fetch("https://saosa.herokuapp.com/api/Bizmod/registration", requestOptions)
   .then(response => response.text())
-  .then(result => { localStorage.setItem('user', result)})
-  .catch(error => console.log('error', error));
-
-  setTimeout(() => {
-    window.location = '/Nav/user'
-    }, 5000);
+  .then(result => { 
+    localStorage.setItem('user', result)
+    setTimeout(() => {
+      setLoading(false)
+      window.location = '/Nav/user'
+      }, 5000);
+  })
+  .catch(error => setLoading(false));
 }
 
 const RecruiterRegister = (e) => {
   e.preventDefault()
+  setLoading(true)
 
   let pass = /[A-Z]/.test(password) && /[0-9]/.test(password);
   console.log(pass)
   if(!pass){
+    setLoading(false)
+    setPasswordStrong("password must have capital letter and a number")
     return
   }
+  setPasswordStrong("")
   const body = {
     "name": name,
     "surname": surname,
@@ -73,14 +92,16 @@ const RecruiterRegister = (e) => {
     redirect: 'follow'
   };
   
-  // fetch("https://saosa.herokuapp.com/api/Bizmod/registration", requestOptions)
-  //   .then(response => response.text())
-  //   .then(result => { localStorage.setItem('user', result)})
-  //   .catch(error => console.log('error', error));
-
-  //   setTimeout(() => {
-  //     window.location = '/Nav/recruiter'
-  //   }, 5000);
+  fetch("https://saosa.herokuapp.com/api/Bizmod/registration", requestOptions)
+    .then(response => response.text())
+    .then(result => { 
+      localStorage.setItem('user', result)
+      setTimeout(() => {
+        setLoading(false)
+        window.location = '/Nav/recruiter'
+      }, 5000);
+    })
+    .catch(error => setLoading(false));
 }
 
 
@@ -131,6 +152,9 @@ const RecruiterRegister = (e) => {
          type='password'
          onChange={ val => setPassword(val.target.value)}
        />
+       {
+         passwordStrong
+       }
      </Form.Field>
 
      <Form.Field required>

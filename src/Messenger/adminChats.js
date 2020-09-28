@@ -34,8 +34,8 @@ function TableExampleCollapsing(){
 
     var raw = {
       message:message,
-      senderID:36,
-      sendeeID:selected
+      senderID:selected,
+      sendeeID:36
     };
 
     var requestOptions = {
@@ -118,14 +118,12 @@ function TableExampleCollapsing(){
               x.senderID === 36? 
               <Comment>
               <Comment.Content>
-              <Comment.Author as='a'>{x.senderID === 36 ? "Admin": "User"}</Comment.Author>
               <Comment.Text>{x.message}</Comment.Text>
               </Comment.Content>
           </Comment>  
               :
                 <Comment style={{width:500, marginLeft:100}}>
                 <Comment.Content>
-                <Comment.Author as='a'>{x.senderID === 36 ? "Admin": "User"}</Comment.Author>
                 <Comment.Text>{x.message}</Comment.Text>
                 </Comment.Content>
             </Comment>      

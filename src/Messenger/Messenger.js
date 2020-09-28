@@ -34,8 +34,8 @@ function TableExampleCollapsing(){
 
     var raw = {
       message:message,
-      senderID:user.id,
-      sendeeID:36
+      senderID:36,
+      sendeeID:user.id
     };
 
     var requestOptions = {
@@ -66,11 +66,17 @@ function TableExampleCollapsing(){
 
         {
           chats.map(x => (
+            x.senderID === 36? 
             <Comment>
             <Comment.Content>
-              <Comment.Author as='a'>{x.senderID === 36 ? "Admin": "You"}</Comment.Author>
-              <Comment.Text>{x.message}</Comment.Text>
+            <Comment.Text>{x.message}</Comment.Text>
             </Comment.Content>
+        </Comment>  
+            :
+              <Comment style={{width:500, marginLeft:100}}>
+              <Comment.Content>
+              <Comment.Text>{x.message}</Comment.Text>
+              </Comment.Content>
           </Comment>      
           ))
         }

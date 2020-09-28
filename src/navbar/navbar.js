@@ -9,7 +9,9 @@ import Upload from "../components/Dashboard/Dashboard";
 import Applications from "../applications/applications";
 import Home from "./Home/Home";
 import AdminChat from "../Messenger/adminChats";
-import Contracts from "../contracts/contracts2";
+import Contracts from "../contracts/contracts";
+import Contracts2 from "../contracts/contracts2";
+
 export default class MenuExampleVertical extends Component {
   state = {
     activeItem: "Home",
@@ -193,12 +195,10 @@ export default class MenuExampleVertical extends Component {
                 <Messanger></Messanger>
               ) : this.state.activeItem === "Upload" ? (
                 <Upload></Upload>
-              ) : welcome[welcome.length - 1] === "admin" ? (
-                <Home></Home>
               ) : this.state.activeItem === "Applications" ? (
                 <Applications></Applications>
               ) : this.state.activeItem === "Contracts" ? (
-                <Contracts></Contracts>
+                <Contracts2></Contracts2>
               ) : null}
             </div>
           </div>

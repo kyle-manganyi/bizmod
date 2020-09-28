@@ -8,6 +8,8 @@ const Dashboard = () => {
 
   const [contracts, setContracts] = useState([])
   const [contractData, setContractData] = useState()
+  const user = JSON.parse(localStorage.getItem("user"))
+
 
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const Dashboard = () => {
       redirect: 'follow'
     };
 
-    fetch("https://saosa.herokuapp.com/api/Bizmod/getUsersContracts?userID=6", requestOptions)
+    fetch("https://saosa.herokuapp.com/api/Bizmod/getUsersContracts?userID="+user.id, requestOptions)
       .then(response => response.json())
       .then(result => setContracts(result))
       .catch(error => console.log('error', error));
@@ -42,9 +44,11 @@ const Dashboard = () => {
         "id":contract.id,
         "name":contract.name,
         "contract":data,
-        "status":contract.status,
+        "status":"aprroved",
         "userID":contract.userID
       };
+
+      console.log("inside")
 
       var requestOptions = {
         method: 'POST',
