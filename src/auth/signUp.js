@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import './auth.css';
 import { Link } from 'react-router-dom'
-import { Input, Button, Form, Container } from 'semantic-ui-react'
+import { Input, Button, Form, Container,Dimmer,Loader } from 'semantic-ui-react'
 
 function App() {
 
@@ -19,7 +19,6 @@ const CandidateRegister = (e) => {
   setLoading(true)
 
   let pass = /[A-Z]/.test(password) && /[0-9]/.test(password);
-  console.log(pass)
   if(!pass){
     setLoading(false)
     setPasswordStrong("password must have capital letter and a number")
@@ -167,7 +166,12 @@ const RecruiterRegister = (e) => {
        />
      </Form.Field>
 
-     <Button 
+     {
+       loading ?  <Dimmer active>
+       <Loader />
+     </Dimmer> :
+     <div>
+       <Button 
        className='loginBtn' 
        primary 
        fluid 
@@ -182,7 +186,10 @@ const RecruiterRegister = (e) => {
           fluid 
           type='submit'
           onClick={RecruiterRegister}>
-          Recruiter Register</Button>
+          Recruiter Register</Button></div>
+     }
+
+     
      
      Have an account? <Link to='/signin'>Login</Link>
    </Form>
