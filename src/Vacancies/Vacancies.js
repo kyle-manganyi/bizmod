@@ -192,7 +192,7 @@ Skills and Experience<br/><br/>
       </Card.Content>
       <Card.Content extra>
         <div className='ui one buttons'>
-          <Button basic color='green' onClick={() => apply(selected)}>
+          <Button basic color='green' onClick={() => apply(vacancies[selected].id)}>
             Apply
           </Button>
         </div>

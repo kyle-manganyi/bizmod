@@ -19,7 +19,7 @@ function TableExampleCollapsing(){
       redirect: 'follow'
     };
     
-    fetch("https://localhost:5004/api/Bizmod/applications?id="+user.id, requestOptions)
+    fetch("https://saosa.herokuapp.com/api/Bizmod/applications?id="+user.id, requestOptions)
       .then(response => response.json())
       .then(result => setVacancies(result))
       .catch(error => console.log('error', error));
