@@ -11,6 +11,7 @@ import Home from "./Home/Home";
 import AdminChat from "../Messenger/adminChats";
 import Contracts from "../contracts/contracts";
 import Contracts2 from "../contracts/contracts2";
+import AdminCv from "../adminCvs/adminCv"
 
 export default class MenuExampleVertical extends Component {
   state = {
@@ -22,7 +23,6 @@ export default class MenuExampleVertical extends Component {
 
   render() {
     const { activeItem, user } = this.state;
-    console.log(activeItem);
     const welcome = window.location.href.split("/");
     return (
       <div>
@@ -298,8 +298,8 @@ export default class MenuExampleVertical extends Component {
                 <Vacancies></Vacancies>
               ) : this.state.activeItem === "Messenger" ? (
                 <AdminChat></AdminChat>
-              ) : this.state.activeItem === "Upload" ? (
-                <Upload></Upload>
+              ) : this.state.activeItem === "CVs" ? (
+                <AdminCv></AdminCv>
               ) : this.state.activeItem === "Applications" ? (
                 <Applications></Applications>
               ) : this.state.activeItem === "Contracts" ? (
