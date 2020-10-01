@@ -1,5 +1,9 @@
 import React,{ useState} from 'react'
 import { Card,Segment,Header,Icon,Button } from 'semantic-ui-react'
+import { renderToString } from "react-dom/server";
+
+import jsPDF from "jspdf";
+
 
 import './Dashboard.css'
 
@@ -22,6 +26,49 @@ const Dashboard = () => {
         .then(result => setMyCvs(result))
         .catch(error => console.log('error', error));
       })
+
+      const styles = {
+        fontFamily: "sans-serif",
+        textAlign: "center"
+      };
+      const colstyle = {
+        width: "30%"
+      };
+      const tableStyle = {
+        width: "100%"
+      };
+
+      const Prints = (props) => (
+        <div>
+          {
+              props.props.map(i =>
+                <div className="cv-contanier" key={i.key}>
+                    <span className="keys">{i.key}</span>
+                    <span className="values">{i.value}</span>
+                </div>)
+          }
+        </div>
+      );
+
+      const jsPdfGenerator = (cv) => {
+
+        const string = renderToString(<Prints props={cv}/>);
+  
+          // Example From https://parall.ax/products/jspdf
+          const pdf = new jsPDF("p", "mm", "a4");
+
+          
+        //   cv.map((i ,index) =>{
+        //       let y = `${index + 2}0`
+        //       let y2 = 50
+        //       let final = parseInt(y) + parseInt(y2)
+        //     doc.text(20,parseInt(final),`${i.key} ${i.value}`)
+        //     })
+          
+          // Save the Data
+          pdf.fromHTML(string);
+            pdf.save("pdf");
+      }
 
 
     const testing = (x) => x.map(i =>
@@ -56,6 +103,7 @@ const Dashboard = () => {
                   .then(result => window.location.reload())
                   .catch(error => console.log('error', error));
                 }}>Delete</button>
+                <button onClick={() => jsPdfGenerator(JSON.parse(x.cv))}>save</button>
                     </div>  
                 </Card>
                 

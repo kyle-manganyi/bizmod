@@ -51,6 +51,23 @@ function TableExampleCollapsing(){
       .catch(error => console.log('error', error));
   }
 
+  const deletevac = (id) =>{
+
+    var myHeaders = new Headers();
+myHeaders.append("accept", "*/*");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://saosa.herokuapp.com/api/Bizmod/delete-vacancy?id="+id, requestOptions)
+  .then(response => response.json())
+  .then(result => setVacancies(result))
+      .catch(error => console.log('error', error));
+  }
+
   const addVac = () => {
     var myHeaders = new Headers();
     myHeaders.append("accept", "*/*");
@@ -191,10 +208,17 @@ Skills and Experience<br/><br/>
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <div className='ui one buttons'>
+        <div className='ui two buttons'>
           <Button basic color='green' onClick={() => apply(vacancies[selected].id)}>
             Apply
           </Button>
+          {
+            welcome[welcome.length-1] === "admin" ? 
+            <Button basic color='red' onClick={() => deletevac(vacancies[selected].id)}>
+            Delete
+          </Button>:null
+          }
+          
         </div>
       </Card.Content>
     </Card>
