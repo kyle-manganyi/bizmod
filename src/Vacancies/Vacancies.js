@@ -64,7 +64,7 @@ var requestOptions = {
 
 fetch("https://saosa.herokuapp.com/api/Bizmod/delete-vacancy?id="+id, requestOptions)
   .then(response => response.json())
-  .then(result => setVacancies(result))
+  .then(result => window.location.reload())
       .catch(error => console.log('error', error));
   }
 
