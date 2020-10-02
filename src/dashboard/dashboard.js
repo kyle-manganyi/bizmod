@@ -6,13 +6,33 @@ var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 function App() {
+
+    const [stats, setStats] = React.useState(null);
+
+    React.useEffect(()=> {
+        var myHeaders = new Headers();
+        myHeaders.append("accept", "*/*");
+
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch("https://saosa.herokuapp.com/api/Bizmod/stats", requestOptions)
+        .then(response => response.json())
+        .then(result => setStats(result))
+        .catch(error => console.log('error', error));
+    },[])
+
+
     const options = {
         animationEnabled: true,
         title: {
             text: "Client Distribution"
         },
         subtitles: [{
-            text: "30,900 Applications",
+            text: "Bizmod",
             verticalAlign: "center",
             fontSize: 20,
             dockInsidePlotArea: true
@@ -21,12 +41,11 @@ function App() {
             type: "doughnut",
             showInLegend: true,
             indexLabel: "{name}: {y}",
-            yValueFormatString: "#,###'%'",
+            yValueFormatString: "#,###",
             dataPoints: [
-                { name: "South Africa", y: 5 },
-                { name: "International", y: 31 },
-                { name: "Companies", y: 40 },
-                { name: "Woman", y: 17 },
+                { name: "Candidates", y: stats !== null ? stats.candidates : null },
+                { name: "recruiters", y: stats !== null ? stats.recruiters : null },
+                { name: "vacancies", y: stats !== null ? stats.vacancies : null },
             ]
         }]
     }

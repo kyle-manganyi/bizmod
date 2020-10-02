@@ -20,9 +20,11 @@ function App() {
           <div style={{marginBottom:20, marginTop:25}}>
           <Button primary style={{width:150}} onClick={()=> window.location = 'signin'}>Sign In</Button>
           </div>
-          <div>
+          <div style={{marginBottom:10}}>
           <Button primary style={{width:150}} onClick={()=> window.location = 'signup'}>Sign Up</Button>
           </div>
+          <Button primary style={{width:150}} onClick={()=> window.location = 'recsignup'}>Recruiter Sign Up</Button>
+
             
         </div>
         </div>

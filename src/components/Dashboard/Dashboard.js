@@ -6,6 +6,25 @@ import './Dashboard.css'
 const Dashboard = () => {
 
     const [cv, setCv] = useState([])
+    const user = JSON.parse(localStorage.getItem('user'))
+    const [mycvs, setMyCvs] = useState([])
+
+    React.useEffect(()=>{
+        var myHeaders = new Headers();
+        myHeaders.append("accept", "*/*");
+
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch("https://saosa.herokuapp.com/api/Bizmod/get-cv?id="+user.id, requestOptions)
+        .then(response => response.json())
+        .then(result => setMyCvs(result))
+        .catch(error => console.log('error', error));
+      })
+
 
     const fmtt = (data) => {
 

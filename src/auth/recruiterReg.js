@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 import './auth.css';
 import { Link } from 'react-router-dom'
-import { Input, Button, Form, Container,Dimmer,Loader } from 'semantic-ui-react'
+import { Input, Button, Form, Container } from 'semantic-ui-react'
 
 function App() {
 
@@ -10,21 +10,9 @@ function App() {
   const [ numbers,setNumbers] = useState()
   const [ username,setUsername] = useState('')
   const [ password,setPassword] = useState('')
-  const [passwordStrong, setPasswordStrong] = useState('')
-  const [loading,setLoading] = useState(false)
-
 
 const CandidateRegister = (e) => {
   e.preventDefault()
-  setLoading(true)
-
-  let pass = /[A-Z]/.test(password) && /[0-9]/.test(password);
-  if(!pass){
-    setLoading(false)
-    setPasswordStrong("password must have capital letter and a number")
-    return
-  }
-  setPasswordStrong("")
 
   const body = {
     "name": name,
@@ -49,28 +37,16 @@ var requestOptions = {
 
 fetch("https://saosa.herokuapp.com/api/Bizmod/registration", requestOptions)
   .then(response => response.text())
-  .then(result => { 
-    localStorage.setItem('user', result)
-    setTimeout(() => {
-      setLoading(false)
-      window.location = '/Nav/user'
-      }, 5000);
-  })
-  .catch(error => setLoading(false));
+  .then(result => { localStorage.setItem('user', result)})
+  .catch(error => console.log('error', error));
+
+  setTimeout(() => {
+    window.location = '/Nav/user'
+    }, 5000);
 }
 
 const RecruiterRegister = (e) => {
   e.preventDefault()
-  setLoading(true)
-
-  let pass = /[A-Z]/.test(password) && /[0-9]/.test(password);
-  console.log(pass)
-  if(!pass){
-    setLoading(false)
-    setPasswordStrong("password must have capital letter and a number")
-    return
-  }
-  setPasswordStrong("")
   const body = {
     "name": name,
     "surname": surname,
@@ -93,16 +69,13 @@ const RecruiterRegister = (e) => {
   
   fetch("https://saosa.herokuapp.com/api/Bizmod/registration", requestOptions)
     .then(response => response.text())
-    .then(result => { 
-      localStorage.setItem('user', result)
-      setTimeout(() => {
-        setLoading(false)
-        window.location = '/Nav/recruiter'
-      }, 5000);
-    })
-    .catch(error => setLoading(false));
-}
+    .then(result => { localStorage.setItem('user', result)})
+    .catch(error => console.log('error', error));
 
+    setTimeout(() => {
+      window.location = '/Nav/recruiter'
+    }, 5000);
+}
 
   return (
     <Container as='fieldset' className='loginContainer'>
@@ -110,21 +83,12 @@ const RecruiterRegister = (e) => {
    <Form >
 
    <Form.Field required >
-       <label>Name</label>
-       <Input placeholder='fullname'
+       <label>Company Name</label>
+       <Input placeholder='Company Name'
          icon='user' 
          iconPosition='left' 
          
          onChange={ val => setName(val.target.value)}/>
-     </Form.Field>
-
-     <Form.Field required >
-       <label>Surname</label>
-       <Input placeholder='surname'
-         icon='user' 
-         iconPosition='left' 
-         
-         onChange={ val => setSurname(val.target.value)}/>
      </Form.Field>
 
      <Form.Field required >
@@ -151,9 +115,6 @@ const RecruiterRegister = (e) => {
          type='password'
          onChange={ val => setPassword(val.target.value)}
        />
-       {
-         passwordStrong
-       }
      </Form.Field>
 
      <Form.Field required>
@@ -166,30 +127,13 @@ const RecruiterRegister = (e) => {
        />
      </Form.Field>
 
-     {
-       loading ?  <Dimmer active>
-       <Loader />
-     </Dimmer> :
-     <div>
-       <Button 
-       className='loginBtn' 
-       primary 
-       fluid 
-       type='submit'
-       onClick={CandidateRegister}
-       >
-      Candidate Register</Button>
-
       <Button 
           className='loginBtn' 
           primary 
           fluid 
           type='submit'
           onClick={RecruiterRegister}>
-          Recruiter Register</Button></div>
-     }
-
-     
+          Recruiter Register</Button>
      
      Have an account? <Link to='/signin'>Login</Link>
    </Form>
