@@ -41,7 +41,7 @@ const Dashboard = () => {
 
     const testing = (x) => x.map(i =>
         <div className="cv-contanier" key={i.key}>
-            <span className="keys">{i.key}</span>
+            <span className="mykeys">{i.key}</span>
             <span className="values">{i.value}</span>
         </div>)
 
@@ -73,70 +73,8 @@ const Dashboard = () => {
         <Card.Group centered>
         {
             cv.length > 0 ? cv.map(x =>(
-                
-                <Card key={x} className="cvs">
-                    
-                    <div>
-                        <div>
-                        {testing(x)}
-                        </div>
-                    <button onClick={() => {
-                var myHeaders = new Headers();
-                myHeaders.append("accept", "*/*");
-                myHeaders.append("Content-Type", "application/json-patch+json");
-                
-                var raw = {
-                    "id":0,
-                    "cv":JSON.stringify(x),
-                    "owner": `${user.name} ${user.surname}` ,
-                    "ownerID":user.id
-                }
-                
-                var requestOptions = {
-                  method: 'POST',
-                  headers: myHeaders,
-                  body: JSON.stringify(raw),
-                  redirect: 'follow'
-                };
-                
-                fetch("https://saosa.herokuapp.com/api/Bizmod/save-cvs", requestOptions)
-                  .then(response => response.text())
-                  .then(result => window.location.reload())
-                  .catch(error => console.log('error', error));
-                }}>save cv</button>
-                    </div>
-                    
-                </Card>
-                
-            ))
-            :null
-        }
-        </Card.Group>
-        <Card.Group centered>
-        {
-            mycvs.length > 0 ? mycvs.map(x =>(
-                
-                <Card key={x.id} className="cvs">
-                        <div>
-                        <div>
-                        {testing(JSON.parse(x.cv))}
-                        </div>
-                    <button onClick={() => {
-                var myHeaders = new Headers();
-                myHeaders.append("accept", "*/*");
-                
-                var requestOptions = {
-                  method: 'POST',
-                  headers: myHeaders,
-                  redirect: 'follow'
-                };
-                
-                fetch("https://saosa.herokuapp.com/api/Bizmod/delete-cvs?id="+x.id, requestOptions)
-                  .then(response => response.text())
-                  .then(result => window.location.reload())
-                  .catch(error => console.log('error', error));
-                }}>Delete</button>
-                    </div>  
+                <Card raised={true} color='yellow' key={x} className="cvs">
+                    {testing(x)}
                 </Card>
                 
             ))

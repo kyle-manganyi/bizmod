@@ -1,14 +1,22 @@
 .cvs {
-    /* margin-left: auto !important;
-    margin-right: auto !important; */
     padding: 4rem;
 }
 
 .values {
     margin-left: 1.5rem;
+    width: 65%;
+}
+
+.mykeys{
+    width: 35%;
 }
 
 .cv-contanier {
     font-weight: bold;
     padding: 1rem;
+    width: 100%;
+}
+
+.ui.card, .ui.cards>.card{
+    width:35% !important;
 }
