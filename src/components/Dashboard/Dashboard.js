@@ -1,5 +1,5 @@
 import React,{ useState} from 'react'
-import { Card,Segment,Header,Icon,Button } from 'semantic-ui-react'
+import { Card,Segment,Header,Icon,Button,Divider } from 'semantic-ui-react'
 
 import './Dashboard.css'
 
@@ -9,21 +9,21 @@ const Dashboard = () => {
     const user = JSON.parse(localStorage.getItem('user'))
     const [mycvs, setMyCvs] = useState([])
 
-    React.useEffect(()=>{
-        var myHeaders = new Headers();
-        myHeaders.append("accept", "*/*");
+    // React.useEffect(()=>{
+    //     var myHeaders = new Headers();
+    //     myHeaders.append("accept", "*/*");
 
-        var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-        };
+    //     var requestOptions = {
+    //     method: 'GET',
+    //     headers: myHeaders,
+    //     redirect: 'follow'
+    //     };
 
-        fetch("https://saosa.herokuapp.com/api/Bizmod/get-cv?id="+user.id, requestOptions)
-        .then(response => response.json())
-        .then(result => setMyCvs(result))
-        .catch(error => console.log('error', error));
-      })
+    //     fetch("https://saosa.herokuapp.com/api/Bizmod/get-cv?id="+user.id, requestOptions)
+    //     .then(response => response.json())
+    //     .then(result => setMyCvs(result))
+    //     .catch(error => console.log('error', error));
+    //   })
 
 
     const fmtt = (data) => {
@@ -40,10 +40,15 @@ const Dashboard = () => {
     }
 
     const testing = (x) => x.map(i =>
+        // {i.value === }
+        <>
         <div className="cv-contanier" key={i.key}>
-            <span className="keys">{i.key}</span>
-            <span className="values">{i.value}</span>
-        </div>)
+            <span className="mykeys">{i.key}</span>
+            <span className="values">{i.value.replace(':','')}</span>
+        </div>
+        <Divider />
+        </>
+        )
 
     return (
         <>
@@ -80,7 +85,10 @@ const Dashboard = () => {
                         <div>
                         {testing(x)}
                         </div>
-                    <button onClick={() => {
+                    <Button 
+                        fluid
+                        animated='fade'
+                    onClick={() => {
                 var myHeaders = new Headers();
                 myHeaders.append("accept", "*/*");
                 myHeaders.append("Content-Type", "application/json-patch+json");
@@ -103,7 +111,10 @@ const Dashboard = () => {
                   .then(response => response.text())
                   .then(result => window.location.reload())
                   .catch(error => console.log('error', error));
-                }}>save cv</button>
+                }}>
+                <Button.Content visible>Save CV</Button.Content>
+                <Button.Content hidden><Icon name='save outline' /></Button.Content>
+                </Button>
                     </div>
                     
                 </Card>
