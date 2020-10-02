@@ -1,20 +1,18 @@
 import React,{useState} from 'react';
 import '../App.css';
-import { Input, Button, Form, Container,Dimmer,Loader } from 'semantic-ui-react'
+import { Input, Button, Form, Container } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 function App() {
   const [username,setUsername] = useState()
   const [password,setPassword] = useState()
-  const [loading,setLoading] = useState(false)
 
   const login = () => {
 
     var myHeaders = new Headers();
     myHeaders.append("accept", "*/*");
     myHeaders.append("Content-Type", "application/json-patch+json");
-    setLoading(true)
 
     const body = {
       "name": " ",
@@ -36,7 +34,6 @@ function App() {
       .then(result => {
         localStorage.setItem('user', JSON.stringify(result))
         setTimeout(() => {
-          setLoading(false)
           if(result.type === "candidate"){
             window.location = '/Nav/user'
           }
@@ -50,7 +47,7 @@ function App() {
         }, 5000);
         
       })
-      .catch(error => setLoading(false));
+      .catch(error => console.log('error', error));
 
   }
 
@@ -102,7 +99,7 @@ function App() {
 
   return (
     <Container as='fieldset' className='loginContainer'>
-    <legend><h1 style={{color:'#2185d0'}}>Login</h1></legend>
+    <legend><h1 style={{color:'#2185d0'}}>Reset</h1></legend>
    <Form>
      <Form.Field required >
        <label>Email</label>
@@ -110,29 +107,10 @@ function App() {
          icon='user' iconPosition='left'
          onChange={ val => setUsername(val.target.value)} />
      </Form.Field>
-     
-     <Form.Field required>
-       <label>Password</label>
-       <Input 
-         icon='lock' 
-         iconPosition='left' 
-         placeholder=' password'
-         type='password'
-         onChange={ val => setPassword(val.target.value)} 
-       />
-     </Form.Field>
-     {
-       loading ?  <Dimmer active>
-       <Loader />
-     </Dimmer> :
-       <Button className='loginBtn' primary fluid type='submit' onClick={login}>Login</Button>
-     }
-     
+    
+     <Button className='loginBtn' primary fluid type='submit' onClick={login}>reset</Button>
       <div>
-      Don't have an account? <Link to='/signup'>Register</Link>
-      </div>
-      <div>
-      Forgot Password? <Link to='/reset'>Reset</Link>
+      remember password? <Link to='/signin'>Login</Link>
       </div>
    </Form>
  </Container>

@@ -83,7 +83,7 @@ function App() {
        <Input 
          icon='lock' 
          iconPosition='left' 
-         placeholder={user.password}
+         placeholder="******"
          type='password'
          onChange={ val => setPassword(val.target.value)}
        />
