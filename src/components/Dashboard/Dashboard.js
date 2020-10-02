@@ -9,21 +9,21 @@ const Dashboard = () => {
     const user = JSON.parse(localStorage.getItem('user'))
     const [mycvs, setMyCvs] = useState([])
 
-    // React.useEffect(()=>{
-    //     var myHeaders = new Headers();
-    //     myHeaders.append("accept", "*/*");
+    React.useEffect(()=>{
+        var myHeaders = new Headers();
+        myHeaders.append("accept", "*/*");
 
-    //     var requestOptions = {
-    //     method: 'GET',
-    //     headers: myHeaders,
-    //     redirect: 'follow'
-    //     };
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
 
-    //     fetch("https://saosa.herokuapp.com/api/Bizmod/get-cv?id="+user.id, requestOptions)
-    //     .then(response => response.json())
-    //     .then(result => setMyCvs(result))
-    //     .catch(error => console.log('error', error));
-    //   })
+        fetch("https://saosa.herokuapp.com/api/Bizmod/get-cv?id="+user.id, requestOptions)
+        .then(response => response.json())
+        .then(result => setMyCvs(result))
+        .catch(error => console.log('error', error));
+      })
 
 
     const fmtt = (data) => {
@@ -39,8 +39,7 @@ const Dashboard = () => {
         setCv(mydata)
     }
 
-    const testing = (x) => x.map(i =>
-        // {i.value === }
+    const testingv2 = (x) => x.map(i =>
         <>
         <div className="cv-contanier" key={i.key}>
             <span className="mykeys">{i.key}</span>
@@ -48,7 +47,21 @@ const Dashboard = () => {
         </div>
         <Divider />
         </>
-        )
+    )
+
+    const testing = (x) => x.map(i =>
+
+        <>
+        { i.value.length === 0 && <Divider />}
+
+            <div className="cv-contanier" key={i.key}>
+                <span className="mykeys">{i.key}</span>
+                <span className="values">{i.value.replace(':','')}</span>
+            </div>
+        
+        </>
+
+    )
 
     return (
         <>
@@ -79,7 +92,7 @@ const Dashboard = () => {
         {
             cv.length > 0 ? cv.map(x =>(
                 
-                <Card key={x} className="cvs">
+                <Card style={{height:'fit-content'}} key={x} className="cvs">
                     
                     <div>
                         <div>
