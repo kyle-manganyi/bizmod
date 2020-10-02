@@ -22,7 +22,7 @@ const Dashboard = () => {
 
     const testing = (x) => x.map(i =>
         <div className="cv-contanier" key={i.key}>
-            <span className="keys">{i.key}</span>
+            <span className="mykeys">{i.key}</span>
             <span className="values">{i.value}</span>
         </div>)
 
@@ -54,8 +54,7 @@ const Dashboard = () => {
         <Card.Group centered>
         {
             cv.length > 0 ? cv.map(x =>(
-                
-                <Card key={x} className="cvs">
+                <Card raised={true} color='yellow' key={x} className="cvs">
                     {testing(x)}
                 </Card>
                 
