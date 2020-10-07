@@ -1,5 +1,5 @@
 import React,{ useState} from 'react'
-import { Card,Segment,Header,Icon,Button } from 'semantic-ui-react'
+import { Card,Segment,Header,Icon,Button,Divider } from 'semantic-ui-react'
 
 import './Dashboard.css'
 
@@ -39,11 +39,29 @@ const Dashboard = () => {
         setCv(mydata)
     }
 
-    const testing = (x) => x.map(i =>
+    const testingv2 = (x) => x.map(i =>
+        <>
         <div className="cv-contanier" key={i.key}>
-            <span className="keys">{i.key}</span>
-            <span className="values">{i.value}</span>
-        </div>)
+            <span className="mykeys">{i.key}</span>
+            <span className="values">{i.value.replace(':','')}</span>
+        </div>
+        <Divider />
+        </>
+    )
+
+    const testing = (x) => x.map(i =>
+
+        <>
+        { i.value.length === 0 && <Divider />}
+
+            <div className="cv-contanier" key={i.key}>
+                <span className="mykeys">{i.key}</span>
+                <span className="values">{i.value.replace(':','')}</span>
+            </div>
+        
+        </>
+
+    )
 
     return (
         <>
@@ -74,13 +92,16 @@ const Dashboard = () => {
         {
             cv.length > 0 ? cv.map(x =>(
                 
-                <Card key={x} className="cvs">
+                <Card style={{height:'fit-content'}} key={x} className="cvs">
                     
                     <div>
                         <div>
                         {testing(x)}
                         </div>
-                    <button onClick={() => {
+                    <Button 
+                        fluid
+                        animated='fade'
+                    onClick={() => {
                 var myHeaders = new Headers();
                 myHeaders.append("accept", "*/*");
                 myHeaders.append("Content-Type", "application/json-patch+json");
@@ -103,7 +124,10 @@ const Dashboard = () => {
                   .then(response => response.text())
                   .then(result => window.location.reload())
                   .catch(error => console.log('error', error));
-                }}>save cv</button>
+                }}>
+                <Button.Content visible>Save CV</Button.Content>
+                <Button.Content hidden><Icon name='save outline' /></Button.Content>
+                </Button>
                     </div>
                     
                 </Card>
