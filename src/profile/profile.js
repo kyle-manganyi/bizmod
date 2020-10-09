@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import { Link } from 'react-router-dom'
-import { Input, Button, Form, Container } from 'semantic-ui-react'
+import { Input, Button, Form, Container,Divider,Card } from 'semantic-ui-react'
 function App() {
   const user = JSON.parse(localStorage.getItem('user'))
   const [ name,setName] = useState(user.name)
@@ -8,6 +8,23 @@ function App() {
   const [ numbers,setNumbers] = useState(user.number)
   const [ username,setUsername] = useState(user.email)
   const [ password,setPassword] = useState(user.password)
+  const [mycvs, setMyCvs] = React.useState([])
+
+  React.useEffect(()=> {
+    var myHeaders = new Headers();
+    myHeaders.append("accept", "*/*");
+
+    var requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
+    };
+
+    fetch("https://saosa.herokuapp.com/api/Bizmod/get-cv?id="+user.id, requestOptions)
+    .then(response => response.json())
+    .then(result => setMyCvs(result))
+    .catch(error => console.log('error', error));
+},[])
 
   const CandidateRegister = (e) => {
     e.preventDefault()
@@ -39,9 +56,25 @@ function App() {
       .catch(error => console.log('error', error));
   }
 
+  const testing = (x) => x.map(i =>
+
+    <>
+    { i.value.length === 0 && <Divider />}
+
+        <div className="cv-contanier" key={i.key}>
+            <span className="mykeys">{i.key}</span>
+            <span className="values">{i.value.replace(':','')}</span>
+        </div>
+    
+    </>
+)
+
 
   return (
+    <div style={{display:"flex"}}>
+
     <Container as='fieldset' className='loginContainer'>
+      <div>
     <legend><h1 style={{color:'#2185d0'}}>Update Profile</h1></legend>
    <Form >
 
@@ -97,10 +130,46 @@ function App() {
        onClick={CandidateRegister}
        >
       Update details</Button>
-
-
    </Form>
- </Container>
+
+   </div>
+
+  
+        </Container>
+
+        <Card.Group centered style={{marginTop:50}}>
+        {
+            mycvs.length > 0 ? mycvs.map(x =>(
+                
+                <Card key={x.id} className="cvs">
+                        <div>
+                        <div>
+                        {testing(JSON.parse(x.cv))}
+                        </div>
+                    <button onClick={() => {
+                var myHeaders = new Headers();
+                myHeaders.append("accept", "*/*");
+                
+                var requestOptions = {
+                  method: 'POST',
+                  headers: myHeaders,
+                  redirect: 'follow'
+                };
+                
+                fetch("https://saosa.herokuapp.com/api/Bizmod/delete-cvs?id="+x.id, requestOptions)
+                  .then(response => response.text())
+                  .then(result => window.location.reload())
+                  .catch(error => console.log('error', error));
+                }}>Delete</button>
+                    </div>  
+                </Card>
+                
+            ))
+            :null
+        }
+        </Card.Group>
+
+        </div>
   );
 }
 

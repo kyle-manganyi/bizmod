@@ -13,6 +13,8 @@ function TableExampleCollapsing(){
   const [skills, setSkills] = React.useState()
   const user = JSON.parse(localStorage.getItem('user'))
   const welcome = window.location.href.split('/')
+  const [users,setUsers] = React.useState([])
+
 
   React.useEffect(()=>{
     var myHeaders = new Headers();
@@ -28,7 +30,22 @@ function TableExampleCollapsing(){
       .then(response => response.json())
       .then(result => setVacancies(result))
       .catch(error => console.log('error', error));
-  })
+
+      var myHeaders = new Headers();
+      myHeaders.append("accept", "*/*");
+
+      var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      redirect: 'follow'
+      };
+
+
+      fetch("https://saosa.herokuapp.com/api/Bizmod/users", requestOptions)
+      .then(response => response.json())
+      .then(result => setUsers(result))
+      .catch(error => console.log('error', error));
+  },[])
 
   const apply = (id) =>{
 
@@ -86,7 +103,36 @@ fetch("https://saosa.herokuapp.com/api/Bizmod/delete-vacancy?id="+id, requestOpt
       .then(response => response.JSON())
       .then(result => vacancies.push(result))
       .catch(error => console.log('error', error));
+      
+      setTimeout(() => {
+        users.map(x => {
+          sendemail(x)
+        })
+      }, 5000);
   }
+
+  const sendemail = (user) => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+        "email": `${user.email}`, "topic": "new vacancy available", "body": `
+        <p>${Poster}</p>
+    `
+    });
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    fetch("https://gentle-savannah-90866.herokuapp.com/user/sendmail", requestOptions)
+        .then(response => response.text())
+        .then(result => {console.log(result)})
+        .catch(error => console.log(error));
+}
 
 
   return (

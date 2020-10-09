@@ -129,7 +129,7 @@ function App() {
      }
      
       <div>
-      Don't have an account? <Link to='/signup'>Register</Link>
+      Don't have an account? <Link to='/signup'>Register as candidate</Link> or <Link to='/recsignup'>Register as recruiter</Link>
       </div>
       <div>
       Forgot Password? <Link to='/reset'>Reset</Link>

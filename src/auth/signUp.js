@@ -178,15 +178,7 @@ const RecruiterRegister = (e) => {
        type='submit'
        onClick={CandidateRegister}
        >
-      Candidate Register</Button>
-
-      <Button 
-          className='loginBtn' 
-          primary 
-          fluid 
-          type='submit'
-          onClick={RecruiterRegister}>
-          Recruiter Register</Button></div>
+      Candidate Register</Button></div>
      }
 
      
