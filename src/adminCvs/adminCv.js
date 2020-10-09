@@ -39,15 +39,19 @@ const Dashboard = () => {
       };
 
       const Prints = (props) => (
-        <div>
+<table style={{"borderWidth":"1px", 'borderColor':"#aaaaaa", 'borderStyle':'solid'}}>
+  <tr>
+    <th>cv</th>
+    <th></th>
+  </tr>
           {
-              props.props.map(i =>
-                <div className="cv-contanier" key={i.key}>
-                    <span className="keys">{i.key}</span>
-                    <span className="values">{i.value}</span>
-                </div>)
-          }
-        </div>
+              props.props.map(i =>(
+                <tr>
+                    <td style={{width:"35%", minWidth:"3"}}>{i.key}</td>
+                    <td className="values">{i.value}</td>
+                </tr>)
+          )}
+       </table>
       );
 
       const jsPdfGenerator = (cv) => {
