@@ -35,14 +35,7 @@ export default class MenuExampleVertical extends Component {
           >
             Bizmod
           </Menu.Item>
-          <Menu.Item
-            name="inbox"
-            active={activeItem === "inbox"}
-            onClick={this.handleItemClick}
-            position="right"
-          >
-            <Icon name="bell" size="large" />
-          </Menu.Item>
+         
           <Menu.Item
             name="updates"
             active={activeItem === "updates"}
